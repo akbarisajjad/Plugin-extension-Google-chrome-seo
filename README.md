@@ -1,2 +1,2 @@
-# symmetrical-train
-Plugin extension Google chrome seokar
+# Plugin extension Google chrome seokar
+
