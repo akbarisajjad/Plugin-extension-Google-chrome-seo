@@ -1,29 +1,40 @@
 chrome.runtime.onInstalled.addListener(() => {
+    createContextMenu();
+});
+
+function createContextMenu() {
     chrome.contextMenus.create({
         id: "extractText",
         title: "استخراج متن صفحه",
         contexts: ["all"]
     });
-});
+}
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
     if (info.menuItemId === "extractText") {
-        chrome.scripting.executeScript({
-            target: { tabId: tab.id },
-            files: ["content.js"]
-        });
+        executeContentScript(tab.id, "content.js");
     }
 });
 
+function executeContentScript(tabId, scriptFile) {
+    chrome.scripting.executeScript({
+        target: { tabId: tabId },
+        files: [scriptFile]
+    });
+}
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    let blob = new Blob([request.content], { type: "text/plain" });
-    let url = URL.createObjectURL(blob);
+    handleDownload(request.content, request.filename);
+    sendResponse({ success: true });
+});
+
+function handleDownload(content, filename) {
+    const blob = new Blob([content], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
 
     chrome.downloads.download({
         url: url,
-        filename: request.filename,
+        filename: filename,
         saveAs: true
     });
-
-    sendResponse({ success: true });
-});
+}
