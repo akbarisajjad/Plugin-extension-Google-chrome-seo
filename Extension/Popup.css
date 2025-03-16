@@ -3,7 +3,8 @@ body {
     text-align: center;
     width: 250px;
     padding: 15px;
-    background: #f8f9fa;
+    background-color: #f8f9fa;
+    margin: 0; /* Added for consistency */
 }
 
 h2, h3 {
@@ -18,7 +19,7 @@ label {
 }
 
 button {
-    background: #007bff;
+    background-color: #007bff;
     color: white;
     border: none;
     padding: 10px;
@@ -26,14 +27,17 @@ button {
     cursor: pointer;
     margin-top: 10px;
     border-radius: 5px;
+    transition: background-color 0.3s ease; /* Added for smooth transition */
 }
 
 button:hover {
-    background: #0056b3;
+    background-color: #0056b3;
 }
 
 select {
     width: 100%;
     padding: 5px;
     border-radius: 5px;
+    border: 1px solid #ccc; /* Added for consistency */
+    box-sizing: border-box; /* Added to include padding in width */
 }
